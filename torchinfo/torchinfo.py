@@ -21,6 +21,7 @@ from torch import nn
 from torch.jit import ScriptModule
 from torch.utils.hooks import RemovableHandle
 import abc
+import collections
 
 from .enums import ColumnSettings, Mode, RowSettings, Verbosity
 from .formatting import FormattingOptions
