@@ -20,6 +20,7 @@ import torch
 from torch import nn
 from torch.jit import ScriptModule
 from torch.utils.hooks import RemovableHandle
+import abc
 
 from .enums import ColumnSettings, Mode, RowSettings, Verbosity
 from .formatting import FormattingOptions
@@ -293,7 +294,7 @@ def forward_pass(
             model = model if device is None else model.to(device)
             if isinstance(x, (list, tuple)):
                 _ = model(*x, **kwargs)
-            elif isinstance(x, dict):
+            elif isinstance(x, (dict, abc.ABCMeta)) or issubclass(x.__class__, collections.UserDict):
                 _ = model(**x, **kwargs)
             else:
                 # Should not reach this point, since process_input_data ensures
